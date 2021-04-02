@@ -1,7 +1,8 @@
 import board
 import busio
 import adafruit_apds9960.apds9960
-import time
+from gpiozero import Robot
+
 
 class BasicVehicle():
     def __init__(self):
@@ -28,7 +29,8 @@ class Vehicle(BasicVehicle):
     def quit(self):
         pass
 
-class Robot:
+class LowLevelRobot:
+    # do not call the class Robot as the 
     def __init__(self):
         # initialise i2c and sensor
         self.i2c = busio.I2C(board.SCL, board.SDA)
@@ -38,13 +40,17 @@ class Robot:
         self.sensor.enable_color = True
         self.sensor.enable_proximity = True
 
+        # initialise robot
+        self.motors = Robot(left=(7,8), right=(9,10))
+
 
     def read(self):
-        self.proximity = self.sensor.proximity
+        self.proximity = self.sensor.proximity  # very close is 255, far away is 0, and it's not at all linear
         r, g, b, c = self.sensor.color_data
         self.r, self.g, self.b, self.c = self._convert_color(r,g,b,c)
+        # brightness: 0 is dark, the brighter the higher
 
-    def print_values(self):
+    def print_sensor_values(self):
         print(f'proximity: {self.proximity}, brightness: {self.c}')
     
     def set(self):

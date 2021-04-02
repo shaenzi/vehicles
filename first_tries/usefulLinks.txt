@@ -7,3 +7,5 @@ direct communication with i2c
 https://learn.sparkfun.com/tutorials/python-programming-tutorial-getting-started-with-the-raspberry-pi/experiment-4-i2c-temperature-sensor
 
 https://learn.sparkfun.com/tutorials/raspberry-pi-spi-and-i2c-tutorial/all
+
+https://projects.raspberrypi.org/en/projects/build-a-buggy
