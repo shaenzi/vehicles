@@ -39,9 +39,12 @@ class Robot:
 
 
     def read():
-        self.proximity_value = self.sensor.proximity
+        self.proximity = self.sensor.proximity
         r, g, b, c = self.sensor.color_data
         self.r, self.g, self.b, self.c = self._convert_color(r,g,b,c)
+
+    def print_values():
+        print(f'proximity: {self.proximity}, brightness: {self.c}')
     
     def set():
         pass
