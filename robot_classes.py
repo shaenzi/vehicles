@@ -51,7 +51,7 @@ class Robot:
         pass
         # TODO: set motor speeds
     
-    def _convert_color(rLSB, gLSB, bLSB, cLSB):
+    def _convert_color(self, rLSB, gLSB, bLSB, cLSB):
         #convert the color readings from 2-byte values to 2⁸ for RGB
         #and percentage for brightness
 
