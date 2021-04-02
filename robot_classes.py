@@ -3,7 +3,7 @@ import busio
 import adafruit_apds9960.apds9960
 import time
 
-class BasicVehicle():
+class BasicVehicle(self):
     def __init__():
         pass
         # TODO: have a robot class here, evaluate it at regular intervals
@@ -29,7 +29,7 @@ class Vehicle(BasicVehicle):
         pass
 
 class Robot:
-    def __init__():
+    def __init__(self):
         self.i2c = busio.I2C(board.SCL, board.SDA)
         self.i2c.init(board.SCL, board.SDA, 400000) #last argument is frequency
         #i2c.scan returns 57, which is 0x39, which is the address of the sensor on the bus
