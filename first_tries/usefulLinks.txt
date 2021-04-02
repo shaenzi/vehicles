@@ -1,0 +1,9 @@
+https://pinout.xyz/pinout/i2c
+
+Adafruit sensor
+https://learn.adafruit.com/adafruit-apds9960-breakout/circuitpython
+
+direct communication with i2c
+https://learn.sparkfun.com/tutorials/python-programming-tutorial-getting-started-with-the-raspberry-pi/experiment-4-i2c-temperature-sensor
+
+https://learn.sparkfun.com/tutorials/raspberry-pi-spi-and-i2c-tutorial/all
