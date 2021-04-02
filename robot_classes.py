@@ -3,8 +3,8 @@ import busio
 import adafruit_apds9960.apds9960
 import time
 
-class BasicVehicle(self):
-    def __init__():
+class BasicVehicle():
+    def __init__(self):
         pass
         # TODO: have a robot class here, evaluate it at regular intervals
 
@@ -15,7 +15,7 @@ class BasicVehicle(self):
         pass
 
 class Vehicle(BasicVehicle):
-    def __init__(type):
+    def __init__(self, type):
         self.type = type
         # TODO add stuff for different types 
 
