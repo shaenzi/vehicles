@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 adafruit-circuitpython-apds9960 = "*"
+rpi = "*"
 
 [dev-packages]
 
