@@ -33,7 +33,7 @@ class Robot:
         self.i2c = busio.I2C(board.SCL, board.SDA)
         self.i2c.init(board.SCL, board.SDA, 400000) #last argument is frequency
         #i2c.scan returns 57, which is 0x39, which is the address of the sensor on the bus
-        self.sensor = adafruit_apds9960.apds9960.APDS9960(i2c)
+        self.sensor = adafruit_apds9960.apds9960.APDS9960(self.i2c)
         self.sensor.enable_color = True
         self.sensor.enable_proximity = True
 
