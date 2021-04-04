@@ -4,14 +4,6 @@ import adafruit_apds9960.apds9960
 from gpiozero import Motor
 
 
-class Vehicle(BasicVehicle):
-    def __init__(self, type):
-        self.type = type
-        # TODO add stuff for different types 
-
-    def __sensor_to_motor_logic(self):
-        pass
-
 class BasicVehicle():
     def __init__(self):
         self.time_interval = 0.2  #s
@@ -38,6 +30,15 @@ class BasicVehicle():
         # currently: go forward slowly
         return 0.4, 0.4
         # this is specific for each vehicle! i.e. subclass needs to over-write this
+
+
+class Vehicle(BasicVehicle):
+    def __init__(self, type):
+        self.type = type
+        # TODO add stuff for different types 
+
+    def __sensor_to_motor_logic(self):
+        pass
 
 
 class LowLevelRobot:
