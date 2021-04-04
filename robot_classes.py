@@ -55,6 +55,8 @@ class LowLevelRobot:
         # initialise robot
         self.left_motor = Motor(9, 10)
         self.right_motor = Motor(7, 8)
+        self.left_value = 0
+        self.right_value = 0
 
     def read(self):
         self.proximity = self.sensor.proximity  # very close is 255, far away is 0, and it's not at all linear
@@ -66,9 +68,19 @@ class LowLevelRobot:
         print(f'proximity: {self.proximity}, brightness: {self.c}')
     
     def set(self, left_value, right_value):
+        self.left_value = left_value
+        self.right_value = right_value
         self.left_motor.forward(left_value)
         self.right_motor.forward(right_value)
+        # theoretically, values between 0 and 1 are possible, but wheel does not turn below 0.4
         # also possible: backward, reverse, stop
+
+    def stop(self):
+        self.left_motor.stop()
+        self.right_motor.stop()
+
+    def start(self):
+        self.set(self.left_value, self.right_value)
     
     def _convert_color(self, rLSB, gLSB, bLSB, cLSB):
         #convert the color readings from 2-byte values to 2⁸ for RGB
