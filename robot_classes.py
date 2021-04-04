@@ -1,3 +1,4 @@
+import time
 import board
 import busio
 import adafruit_apds9960.apds9960
