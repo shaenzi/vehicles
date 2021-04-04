@@ -1,33 +1,44 @@
 import board
 import busio
 import adafruit_apds9960.apds9960
-from gpiozero import Robot
+from gpiozero import Motor
 
-
-class BasicVehicle():
-    def __init__(self):
-        pass
-        # TODO: have a robot class here, evaluate it at regular intervals
-
-    def start_timer(self):
-        pass
-
-    def stop_timer(self):
-        pass
 
 class Vehicle(BasicVehicle):
     def __init__(self, type):
         self.type = type
         # TODO add stuff for different types 
 
-    def stop(self):
+    def __sensor_to_motor_logic(self):
         pass
+
+class BasicVehicle():
+    def __init__(self):
+        self.time_interval = 0.2  #s
+        self.logic_running = False
+        self.robot = LowLevelRobot()
 
     def start(self):
-        pass
+        self.logic_running = True
+        self.__evaluate()
 
-    def quit(self):
-        pass
+
+    def stop(self):
+        self.logic_running = False
+        self.__evaluate()
+
+    def __evaluate(self):
+        while self.logic_running:
+            self.robot.read()
+            left_value, right_value = self.__sensor_to_motor_logic()  # not sure whether it would be better to save these values?
+            self.robot.set(left_value, right_value)
+            time.sleep(self.time_interval)
+
+    def __sensor_to_motor_logic(self):
+        # currently: go forward slowly
+        return 0.4, 0.4
+        # this is specific for each vehicle! i.e. subclass needs to over-write this
+
 
 class LowLevelRobot:
     # do not call the class Robot as the 
@@ -41,8 +52,8 @@ class LowLevelRobot:
         self.sensor.enable_proximity = True
 
         # initialise robot
-        self.motors = Robot(left=(7,8), right=(9,10))
-
+        self.left_motor = Motor(9, 10)
+        self.right_motor = Motor(7, 8)
 
     def read(self):
         self.proximity = self.sensor.proximity  # very close is 255, far away is 0, and it's not at all linear
@@ -53,9 +64,10 @@ class LowLevelRobot:
     def print_sensor_values(self):
         print(f'proximity: {self.proximity}, brightness: {self.c}')
     
-    def set(self):
-        pass
-        # TODO: set motor speeds
+    def set(self, left_value, right_value):
+        self.left_motor.forward(left_value)
+        self.right_motor.forward(right_value)
+        # also possible: backward, reverse, stop
     
     def _convert_color(self, rLSB, gLSB, bLSB, cLSB):
         #convert the color readings from 2-byte values to 2⁸ for RGB
