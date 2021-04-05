@@ -5,27 +5,50 @@ import adafruit_apds9960.apds9960
 from gpiozero import Motor
 
 
+from threading import Timer
+
+class RepeatedTimer(object):
+    def __init__(self, interval, function, *args, **kwargs):
+        self._timer     = None
+        self.interval   = interval
+        self.function   = function
+        self.args       = args
+        self.kwargs     = kwargs
+        self.is_running = False
+        # self.start()  # do not want it to start automatically
+
+    def _run(self):
+        self.is_running = False
+        self.start()
+        self.function(*self.args, **self.kwargs)
+
+    def start(self):
+        if not self.is_running:
+            self._timer = Timer(self.interval, self._run)
+            self._timer.start()
+            self.is_running = True
+
+    def stop(self):
+        self._timer.cancel()
+        self.is_running = False
+
+
 class BasicVehicle():
     def __init__(self):
         self.time_interval = 0.2  #s
-        self.logic_running = False
+        self.rt = RepeatedTimer(self.time_interval, self.__evaluate)
         self.robot = LowLevelRobot()
 
     def start(self):
-        self.logic_running = True
-        self.__evaluate()
-
+        self.rt.start()
 
     def stop(self):
-        self.logic_running = False
-        self.__evaluate()
+        self.rt.stop()
 
     def __evaluate(self):
-        while self.logic_running:
-            self.robot.read()
-            left_value, right_value = self.__sensor_to_motor_logic()  # not sure whether it would be better to save these values?
-            self.robot.set(left_value, right_value)
-            time.sleep(self.time_interval)
+        self.robot.read()
+        left_value, right_value = self.__sensor_to_motor_logic()  # not sure whether it would be better to save these values?
+        self.robot.set(left_value, right_value)
 
     def __sensor_to_motor_logic(self):
         # currently: go forward slowly
