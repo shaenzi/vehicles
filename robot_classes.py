@@ -36,7 +36,7 @@ class RepeatedTimer(object):
 class BasicVehicle():
     def __init__(self):
         self.time_interval = 0.2  #s
-        self.rt = RepeatedTimer(self.time_interval, self.__evaluate)
+        self.rt = RepeatedTimer(self.time_interval, self._evaluate)
         self.robot = LowLevelRobot()
 
     def start(self):
