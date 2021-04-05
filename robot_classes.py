@@ -44,6 +44,7 @@ class BasicVehicle():
 
     def stop(self):
         self.rt.stop()
+        self.stop()  # otherwise robot continues with last values set
 
     def __evaluate(self):
         self.robot.read()
