@@ -61,8 +61,8 @@ class VehicleX(BasicVehicle):
     # first try at having sensor logic: stop if too close or dark
 
     def _sensor_to_motor_logic(self):
-        self.robot.print_sensor_values()
-        if (self.robot.proximity > 150) or (self.robot.c < 5):
+        #self.robot.print_sensor_values()
+        if (self.robot.proximity > 130) or (self.robot.c < 5):
             return 0, 0
         else:
             return 0.4, 0.4
