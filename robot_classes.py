@@ -46,12 +46,12 @@ class BasicVehicle():
         self.rt.stop()
         self.robot.stop()  # otherwise robot continues with last values set
 
-    def __evaluate(self):
+    def _evaluate(self):
         self.robot.read()
-        left_value, right_value = self.__sensor_to_motor_logic()  # not sure whether it would be better to save these values?
+        left_value, right_value = self._sensor_to_motor_logic()  # not sure whether it would be better to save these values?
         self.robot.set(left_value, right_value)
 
-    def __sensor_to_motor_logic(self):
+    def _sensor_to_motor_logic(self):
         # currently: go forward slowly
         return 0.4, 0.4
         # this is specific for each vehicle! i.e. subclass needs to over-write this
@@ -60,7 +60,7 @@ class BasicVehicle():
 class VehicleX(BasicVehicle):
     # first try at having sensor logic: stop if too close or dark
 
-    def __sensor_to_motor_logic(self):
+    def _sensor_to_motor_logic(self):
         self.robot.print_sensor_values()
         if (self.robot.proximity > 150) or (self.robot.c < 5):
             return 0, 0
