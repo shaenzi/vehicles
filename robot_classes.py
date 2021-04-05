@@ -57,13 +57,14 @@ class BasicVehicle():
         # this is specific for each vehicle! i.e. subclass needs to over-write this
 
 
-class Vehicle(BasicVehicle):
-    def __init__(self, type):
-        self.type = type
-        # TODO add stuff for different types 
+class VehicleX(BasicVehicle):
+    # first try at having sensor logic: stop if too close or dark
 
     def __sensor_to_motor_logic(self):
-        pass
+        if (self.robot.proximity > 230) or (self.robot.c < 0.01):
+            return 0, 0
+        else:
+            return 0.4, 0.4
 
 
 class LowLevelRobot:
