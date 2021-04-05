@@ -50,6 +50,7 @@ class BasicVehicle():
         self.robot.read()
         left_value, right_value = self.__sensor_to_motor_logic()  # not sure whether it would be better to save these values?
         self.robot.set(left_value, right_value)
+        print('updated motor values')
 
     def __sensor_to_motor_logic(self):
         # currently: go forward slowly
